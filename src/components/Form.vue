@@ -1,9 +1,9 @@
 <template>
   <div class="widget">
     <h2>Редактирование</h2>
-    <form id="form">
-      <FormLine title="Фамилия" v-bind:value="userData.surname" />
-      <FormLine title="Имя" v-bind:value="userData.name" />
+    <form id="form" @submit.prevent="onSubmit">
+      <FormLine title="Фамилия" v-bind:value="userData.surname" v-on:change-input="updateSurname" />
+      <FormLine title="Имя" v-bind:value="userData.name" v-on:change-input="updateName" />
       <div class="form__buttons">
         <button class="form__button form__button_save">Сохранить</button>
         <button type="reset" class="form__button form__button_reset">Отменить</button>
@@ -20,6 +20,17 @@ export default {
   components: {
     FormLine,
   },
+  methods: {
+    onSubmit() {
+      console.log(this.surname, this.name);
+    },
+    updateSurname(surname) {
+      this.surname = surname;
+    },
+    updateName(name) {
+      this.name = name;
+    },
+  },
 };
 </script>
 
@@ -29,27 +40,27 @@ export default {
 }
 
 .form__buttons {
-    position: relative;
-    top: 70px;
-    left: -6%;
+  position: relative;
+  top: 70px;
+  left: -6%;
 }
 
 .form__button {
-    width: 120px;
-    height: 50px;
-    margin-right: 18px;
-    border-radius: 5px;
-    cursor: pointer;
+  width: 120px;
+  height: 50px;
+  margin-right: 18px;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
 .form__button_reset {
-    background-color: #fff;
-    border: 2px solid #c9c9c9;
+  background-color: #fff;
+  border: 2px solid #c9c9c9;
 }
 
 .form__button_save {
-    background-color: #d11e1e;
-    color: #fff;
-    border: 0;
+  background-color: #d11e1e;
+  color: #fff;
+  border: 0;
 }
 </style>
