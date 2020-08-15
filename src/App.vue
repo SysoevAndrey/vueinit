@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Widget v-bind:userData="userData" />
-    <Form v-bind:userData="userData" />
+    <Form v-bind:userData="userData" @update-data="updateData" />
   </div>
 </template>
 
@@ -30,6 +30,11 @@ export default {
     Widget,
     Form,
   },
+  methods: {
+    updateData(name, surname) {
+      this.userData = { name: name, surname: surname }
+    }
+  }
 };
 </script>
 

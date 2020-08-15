@@ -1,13 +1,13 @@
 <template>
   <div class="form__line">
     <h3>{{ title }}</h3>
-    <input type="text" class="form__input" :value="value" v-on:keyup="$emit('change-input', $event.target.value)"/>
+    <input type="text" class="form__input" :value="value" v-on:keyup="$emit('change-input', $event.target.value)" :name="name"/>
   </div>
 </template>
 
 <script>
 export default {
-  props: ["title", "value"],
+  props: ["title", "value", "name"],
 };
 </script>
 

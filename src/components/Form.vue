@@ -2,8 +2,8 @@
   <div class="widget">
     <h2>Редактирование</h2>
     <form id="form" @submit.prevent="onSubmit">
-      <FormLine title="Фамилия" v-bind:value="userData.surname" v-on:change-input="updateSurname" />
-      <FormLine title="Имя" v-bind:value="userData.name" v-on:change-input="updateName" />
+      <FormLine title="Фамилия" v-bind:value="userData.surname" v-bind:name="names[0]" v-on:change-input="updateSurname" />
+      <FormLine title="Имя" v-bind:value="userData.name" v-bind:name="names[1]" v-on:change-input="updateName" />
       <div class="form__buttons">
         <button class="form__button form__button_save">Сохранить</button>
         <button type="reset" class="form__button form__button_reset">Отменить</button>
@@ -17,18 +17,43 @@ import FormLine from "./FormLine";
 
 export default {
   props: ["userData"],
+  data() {
+    return {
+      newUserData: { name: this.userData.name, surname: this.userData.surname },
+      names: ['surname', 'name'],
+      newName: '',
+      newSurname: ''
+    };
+  },
   components: {
     FormLine,
   },
   methods: {
-    onSubmit() {
-      console.log(this.surname, this.name);
+    onSubmit(submitEvent) {
+      this.newName = submitEvent.target.elements.name.value;
+      this.newSurname = submitEvent.target.elements.surname.value;
+      const result = this.newName + " " + this.newSurname;
+
+      fetch("https://jsonplaceholder.typicode.com/users/1", {
+        method: "PUT",
+        body: JSON.stringify({
+          name: `${result}`,
+        }),
+        headers: {
+          "Content-type": "application/json; charset=UTF-8",
+        },
+      })
+        .then((res) => res.json())
+        .then(() => {
+          this.$emit('update-data', this.newName, this.newSurname);
+        })
+        .catch((err) => console.log(err));
     },
     updateSurname(surname) {
-      this.surname = surname;
+      this.newUserData.surname = surname;
     },
     updateName(name) {
-      this.name = name;
+      this.newUserData.name = name;
     },
   },
 };
