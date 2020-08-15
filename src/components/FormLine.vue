@@ -1,7 +1,11 @@
 <template>
   <div class="form__line">
     <h3>{{ title }}</h3>
-    <input type="text" class="form__input" :value="value" v-on:keyup="$emit('change-input', $event.target.value)" :name="name"/>
+    <input type="text"
+           class="form__input"
+           :value="value"
+           :name="name"
+           autocomplete="off"/>
   </div>
 </template>
 

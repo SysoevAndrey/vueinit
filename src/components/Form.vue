@@ -2,8 +2,12 @@
   <div class="widget">
     <h2>Редактирование</h2>
     <form id="form" @submit.prevent="onSubmit">
-      <FormLine title="Фамилия" v-bind:value="userData.surname" v-bind:name="names[0]" v-on:change-input="updateSurname" />
-      <FormLine title="Имя" v-bind:value="userData.name" v-bind:name="names[1]" v-on:change-input="updateName" />
+      <FormLine title="Фамилия"
+                v-bind:value="userData.surname"
+                v-bind:name="names[0]" />
+      <FormLine title="Имя"
+                v-bind:value="userData.name"
+                v-bind:name="names[1]" />
       <div class="form__buttons">
         <button class="form__button form__button_save">Сохранить</button>
         <button type="reset" class="form__button form__button_reset">Отменить</button>
@@ -49,12 +53,7 @@ export default {
         })
         .catch((err) => console.log(err));
     },
-    updateSurname(surname) {
-      this.newUserData.surname = surname;
-    },
-    updateName(name) {
-      this.newUserData.name = name;
-    },
+
   },
 };
 </script>
